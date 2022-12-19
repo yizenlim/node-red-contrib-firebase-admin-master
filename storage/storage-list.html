@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  RED.nodes.registerType('storage-list',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      path: {value:""},
+      bucket: {value:""},
+      cred: {value: "", type: 'firebase-config'},
+      delimiter: {value: '/'}
+    },
+    inputs:1,
+    outputs:1,
+    icon: "storage.png",
+    label: function() {
+      return this.name||"storage-list";
+    }
+
+  });
+
+</script>
+
+<script type="text/x-red" data-template-name="storage-list">
+  <div class="form-row">
+  <label for="node-input-bucket"><i class="icon-tag"></i> Bucket Name</label>
+<input type="text" id="node-input-bucket" placeholder="Bucket Name">
+  </div>
+
+  <div class="form-row">
+  <label for="node-input-path"><i class="icon-tag"></i> Path</label>
+<input type="text" id="node-input-path" placeholder="Path">
+  </div>
+
+  <div class="form-row">
+  <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+<input type="text" id="node-input-cred" placeholder="Cred">
+  </div>
+
+  <div class="form-row">
+  <label for="node-input-delimiter"><i class="icon-tag"></i> Delimiter</label>
+<input type="text" id="node-input-delimiter" placeholder="Delimiter">
+  </div>
+
+  </script>
+
+<script type="text/x-red" data-help-name="storage-list">
+  <p>A node that list files from bucket path in google cloud storage</p>
+  Lists the contents of files in a bucket
+<p>
+If "path" is defined in the payload, only files beginning with that path will be returned. I fomitted, the root level of the bucket is listed.
+A path can also be deep likes this; "foo/bar/baz". "delimiter" is the charatcer used to delimit directory levels, "/" by default.
+<p>
+input:
+
+    {
+        "payload": {
+            "bucket": "xyzzyz123.appspot.com",  // optional
+            "path": "directory1", // optional
+            "delimiter": "/" // optional
+         }
+    }
+<p>
+output: An array of google cloud-storage File objects. If you take this output and send it to a function which outputs a payload like this;
+
+    {"files": array_of_File_obejcts}
+   <p>
+The storage-read module will read all file contents and output an object of filename keyed Buffer objects instead of the normal one.
+
+</script>

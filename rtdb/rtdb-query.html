@@ -1,0 +1,67 @@
+<script type="text/javascript">
+  RED.nodes.registerType('rtdb-query',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      cred: {value: "", type: 'firebase-config'}
+    },
+    inputs:1,
+    outputs:1,
+    icon: "firebase-admin-icon.png",
+    label: function() {
+      return this.name||"rtdb-query";
+    },
+
+    oneditsave: function() {
+      let type = $('#apitype-select').val()
+      console.log('type is set to '+type)
+
+    },
+
+    oneditprepare: function() {
+      $('#apitype-select').change(function () {
+        $("#node-input-apitype").val($(this).find('option:selected').val())
+      });
+      $("#apitype-select").val($("#node-input-apitype").val())
+      $('#apitype-select').trigger('change');
+    }
+  });
+
+
+</script>
+
+<script type="text/x-red" data-template-name="rtdb-query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+        <input type="text" id="node-input-cred" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="rtdb-query">
+    <p>A node that wraps the rtdb-query SDK</p>
+    Set up a reactive query for a path in the rtdb database.
+<p>
+input: {"payload": {"path": "foo/bar", queries:[], on: "value}}
+<p>
+on: "value" (can also be "child_added", "child_removed", "child_changed", "child_moved").
+If an "on" property is missing, on: "value" is assumed as default
+<p>
+Where each query is an object that can look like either of the following examples;
+   <p>
+- {"startAt": "foo"}
+- {"endAt": "bar"}
+- {"equalTo": "quux"}
+- {"orderBy": "child", "value": "height"}  (can also be "key" or "value)
+- {"limitTo": "last", "value": 3}  (can also be "first")
+<p>
+output: [an array of results for the query]
+
+</script>

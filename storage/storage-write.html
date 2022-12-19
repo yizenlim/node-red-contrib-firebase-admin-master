@@ -1,0 +1,65 @@
+<script type="text/javascript">
+  RED.nodes.registerType('storage-write',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      path: {value:""},
+      bucket: {value:""},
+      cred: {value: "", type: 'firebase-config'}
+    },
+    inputs:1,
+    outputs:1,
+    icon: "storage.png",
+    label: function() {
+      return this.name||"storage-write";
+    }
+
+  });
+
+</script>
+
+<script type="text/x-red" data-template-name="storage-write">
+  <div class="form-row">
+  <label for="node-input-bucket"><i class="icon-tag"></i> Bucket Name</label>
+<input type="text" id="node-input-bucket" placeholder="Bucket Name">
+  </div>
+
+  <div class="form-row">
+  <label for="node-input-path"><i class="icon-tag"></i> Path</label>
+<input type="text" id="node-input-path" placeholder="Path">
+  </div>
+
+  <div class="form-row">
+  <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+<input type="text" id="node-input-cred" placeholder="Name">
+  </div>
+
+  </script>
+
+<script type="text/x-red" data-help-name="storage-write">
+  <p>A node that read files from bucket path in google cloud storage</p>
+  Writes the content of  JavaScript Buffer object to a file path in a storage bucket.
+<p>
+input:
+
+    {
+        "payload": {
+            "bucket": "abc.appspot.com", // optional, is otherwise set as node config
+            "path": "foo/bar/baz.json", // optional, see above
+            "contents": <Buffer obj>,
+            "contentType": "application/json" }, // optional
+            "metadata": { "very":"interesting"}, // optional
+            "public": true, // optional
+            "private": false // optional
+        }
+    }
+    <p>
+output:
+
+    {
+        "payload": {"success": true, "filename": "foo/bar.txt"}  // ot false if an error occurred
+    }
+
+</script>

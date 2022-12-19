@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  RED.nodes.registerType('firestore-set',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      cred: {value: "", type: 'firebase-config'}
+    },
+    inputs:1,
+    outputs:0,
+    icon: "firebase-admin-icon.png",
+    label: function() {
+      return this.name||"firestore-set";
+    },
+
+    oneditsave: function() {
+      let type = $('#apitype-select').val()
+      console.log('type is set to '+type)
+
+    },
+
+    oneditprepare: function() {
+      $('#apitype-select').change(function () {
+        $("#node-input-apitype").val($(this).find('option:selected').val())
+      });
+      $("#apitype-select").val($("#node-input-apitype").val())
+      $('#apitype-select').trigger('change');
+    }
+  });
+
+
+</script>
+
+<script type="text/x-red" data-template-name="firestore-set">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+        <input type="text" id="node-input-cred" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="firestore-set">
+    <p>A node that wraps the firestore-set SDK</p>
+    Set data at a path in the firestore database. Uses "onSnapshot" so will fire every time the data at the path changes and so drive flow execution from that point.
+<p>
+input: {"payload": {"path": "foo/bar"}, {"some": object, "foo": 17}}
+</script>

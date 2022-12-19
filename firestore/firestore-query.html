@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  RED.nodes.registerType('firestore-query',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      cred: {value: "", type: 'firebase-config'}
+    },
+    inputs:1,
+    outputs:1,
+    icon: "firebase-admin-icon.png",
+    label: function() {
+      return this.name||"firestore-query";
+    },
+
+    oneditsave: function() {
+      let type = $('#apitype-select').val()
+      console.log('type is set to '+type)
+
+    },
+
+    oneditprepare: function() {
+      $('#apitype-select').change(function () {
+        $("#node-input-apitype").val($(this).find('option:selected').val())
+      });
+      $("#apitype-select").val($("#node-input-apitype").val())
+      $('#apitype-select').trigger('change');
+    }
+  });
+
+
+</script>
+
+<script type="text/x-red" data-template-name="firestore-query">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+        <input type="text" id="node-input-cred" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="firestore-query">
+    <p>A node that wraps the firestore-query SDK</p>
+    Set up a reactive query for a collection in the firestore database.
+<p>
+input:
+<p>
+    {
+        "payload": {
+            "path": "foo/bar",
+            "queries":[],
+            "limit": 7,
+            "startAt": 4000,  // follows the orderBy property
+            "endAt": 4050, // follows the orderBy property
+            "orderBy": "shoeSize",
+            "orderDirection": "asc", //default is "desc"
+            "queries":[
+                {"company", "==", "ACME"},
+                {"createdAt", ">", 1560099394242}
+            ]
+        }
+<p>
+output: An array of the results of the query.
+
+</script>

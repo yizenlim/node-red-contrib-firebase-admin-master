@@ -1,0 +1,56 @@
+<script type="text/javascript">
+  RED.nodes.registerType('firestore-add',{
+
+    category: 'firebase-admin',
+    color: '#a6bbcf',
+    defaults: {
+      name: {value:""},
+      cred: {value: "", type: 'firebase-config'}
+    },
+    inputs:1,
+    outputs:1,
+    icon: "firebase-admin-icon.png",
+    label: function() {
+      return this.name||"firestore-add";
+    },
+
+    oneditsave: function() {
+      let type = $('#apitype-select').val()
+      console.log('type is set to '+type)
+
+    },
+
+    oneditprepare: function() {
+      $('#apitype-select').change(function () {
+        $("#node-input-apitype").val($(this).find('option:selected').val())
+      });
+      $("#apitype-select").val($("#node-input-apitype").val())
+      $('#apitype-select').trigger('change');
+    }
+  });
+
+
+</script>
+
+<script type="text/x-red" data-template-name="firestore-add">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-cred"><i class="icon-tag"></i> Credentials</label>
+        <input type="text" id="node-input-cred" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="firestore-add">
+    <p>A node that wraps the firestore-add SDK</p>
+    Adds the new object under the collection the path describes and assigns it a random id
+<p>
+input: {"payload": {"path": "foo/bar"}, {"some": object, "foo": 17}}
+<p>
+output: The id of the new document
+
+</script>
