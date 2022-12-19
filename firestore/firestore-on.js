@@ -11,7 +11,7 @@ module.exports = function (RED) {
       this.admin = c.admin;
     }
 
-    const setup = (path) => {
+    const setup = (path,msg) => {
       if (unsub) {
         unsub();
       }
@@ -37,7 +37,7 @@ module.exports = function (RED) {
         if (msg && msg.payload) {
           msgin = msg;
           const path = msg.payload.path;
-          setup(path);
+          setup(path,msg);
         }
       }.bind(this)
     );
