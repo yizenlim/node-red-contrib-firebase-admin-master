@@ -16,18 +16,20 @@ module.exports = function (RED) {
       //   unsub();
       // }
 
-      msgin = msg;
-      unsub = this.admin.firestore().doc(path).onSnapshot(cb);
+      unsub = this.admin.firestore().doc(path).onSnapshot((res)=>{
+
+        cb(res,msg);
+      });
     };
 
-    const cb = (res) => {
+    const cb = (res,msg) => {
       console.log("firestore get result " + res);
       console.dir(res);
       let val = res.data();
       console.log("val=" + val);
-      if (msgin) {
-        msgin.payload = val;
-        node.send(msgin);
+      if (msg) {
+        msg.payload = val;
+        node.send(msg);
       } else {
         node.send({ payload: val });
       }
@@ -39,7 +41,7 @@ module.exports = function (RED) {
         if (msg && msg.payload) {
           // msgin = msg;
           console.log("msg" );
-          console.dir(msg);
+          // console.dir(msg);
 
           const path = msg.payload.path;
 
