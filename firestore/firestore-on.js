@@ -23,10 +23,15 @@ module.exports = function (RED) {
     };
 
     const cb = (res,msg) => {
+
+      console.dir( msg);
+
       console.log("firestore get result " + res);
       console.dir(res);
       let val = res.data();
-      console.log("val=" + val);
+      console.log("val=" );
+      console.dir( val);
+
       if (msg) {
         msg.payload = val;
         node.send(msg);
