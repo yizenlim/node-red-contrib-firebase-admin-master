@@ -17,13 +17,14 @@ module.exports = function (RED) {
       }
 
       unsub = this.admin.firestore().doc(path).onSnapshot((res)=>{
+        console.log( "onSnapshot");
 
         cb(res,msg);
       });
     };
 
     const cb = (res,msg) => {
-      console.log( msg);
+      console.log( "msg");
 
       console.dir( msg);
 
