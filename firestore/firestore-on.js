@@ -12,13 +12,12 @@ module.exports = function (RED) {
     }
 
     const setup = (path,msg) => {
-      if (unsub) {
-        unsub();
-      }
+      // if (unsub) {
+      //   unsub();
+      // }
 
       unsub = this.admin.firestore().doc(path).onSnapshot((res)=>{
-        console.log( "onSnapshot");
-
+        console.log("onSnapshot");
         cb(res,msg);
       });
     };
