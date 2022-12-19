@@ -38,6 +38,9 @@ module.exports = function (RED) {
       function (msg) {
         if (msg && msg.payload) {
           // msgin = msg;
+          console.log("msg" );
+          console.dir(msg);
+
           const path = msg.payload.path;
 
           console.log(`Path is ${path}`);
