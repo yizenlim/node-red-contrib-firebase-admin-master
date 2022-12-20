@@ -11,12 +11,12 @@ module.exports = function (RED) {
       this.admin = c.admin;
     }
 
-    const setup = (path,msg) => {
+    const setup =async (path,msg) => {
       // if (unsub) {
       //   unsub();
       // }
 
-      unsub = this.admin.firestore().doc(path).onSnapshot((res)=>{
+      unsub = await this.admin.firestore().doc(path).onSnapshot((res)=>{
         console.log("onSnapshot");
         cb(res,msg);
       });
