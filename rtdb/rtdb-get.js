@@ -45,7 +45,7 @@ module.exports = function (RED) {
 
     this.path = config.path;
     if (this.path) {
-      callRtdbGet(this.path);
+      callRtdbGet(this.path,msg);
     }
 
     node.on(
@@ -56,7 +56,7 @@ module.exports = function (RED) {
         if (msg && msg.payload) {
           path = path || msg.payload.path;
         }
-        callRtdbGet(path);
+        callRtdbGet(path,msg);
       }.bind(this)
     );
   }
